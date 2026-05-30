@@ -1,0 +1,126 @@
+﻿<Page x:Class="Kyrsovai.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kyrsovai"
+      mc:Ignorable="d" 
+      Width="1180" Background="#b5f5d6" Height="Auto" MinHeight="700"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <ControlTemplate x:Key="myTemplate" TargetType="Button">
+            <Border x:Name="OuterBorder" 
+                    Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="10">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="LightGreen"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#11f084"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#10b364"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Шапка -->
+            <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Margin="10" Background="White">
+                <Grid>
+                    <WrapPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
+                        <Image Source="/logo.png" Height="50" Width="50" Margin="0,0,10,0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                            </Image.Clip>
+                        </Image>
+                        <TextBlock Text="Фриланс-биржа NowWork" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                        <Button x:Name="Iworker1" Template="{StaticResource myTemplate}" Content="Я заказчик" Width="130" Margin="0,0,10,0" Click="Iworker1_Click"/>
+                        <Button x:Name="Ifrilance" Background="#10b364" Template="{StaticResource myTemplate}" Content="Я фрилансер" Width="130" Margin="0,0,20,0" Click="Ifrilance_Click"/>
+                    </WrapPanel>
+
+                    <WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="GuestText" Width="250" TextAlignment="Right" TextWrapping="Wrap" Text="Гость" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Button x:Name="EnterButton" Content="Войти" Template="{StaticResource myTemplate}" Click="ButtonVoiti_Click"/>
+                        <Button x:Name="ExitButton" Background="#f5b5d0" Content="Выйти" Template="{StaticResource myTemplate}" Click="ButtonExit_Click" Visibility="Collapsed"/>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+
+            <!-- Список заказов (теперь без статических ListBoxItem) -->
+            <ListBox x:Name="OrdersList" Grid.Row="1" Margin="10" Background="Transparent" BorderThickness="0" 
+         HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+         ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" Width="220" Margin="10" Background="White"
+                    Cursor="Hand" MouseLeftButtonDown="OrderCard_Click">
+                            <StackPanel>
+                                <Image Source="{Binding ImagePath}" Height="150" Stretch="UniformToFill"/>
+                                <TextBlock FontSize="16" Height="50" Text="{Binding OrderTitle}" Margin="10,5,10,0" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Price}" Margin="10,5" Foreground="Black" FontSize="18" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Author}" Margin="10,0" FontSize="12" Foreground="Gray"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Margin="10,0,10,10">
+                                    <TextBlock Text="⭐ " Foreground="Gold"/>
+                                    <TextBlock Text="{Binding Rating}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Deadline, StringFormat='Срок: dd.MM.yyyy'}" Margin="10,0,10,10" FontSize="12" Foreground="Gray"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Подвал -->
+            <Border Grid.Row="2" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="10" Background="#f8f8f8">
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center" 
+                               Text="© 2026 Фриланс-биржа. Все права защищены. | Контакты: info@freelance.ru | +7 (999) 123-45-67"/>
+
+                    <WrapPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#337ab7" 
+               TextDecorations="Underline" Text="Пользовательское соглашение" Margin="5"
+               Cursor="Hand" MouseLeftButtonDown="Agreement_Click"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#337ab7" 
+               TextDecorations="Underline" Text="Политика конфиденциальности" Margin="5"
+               Cursor="Hand" MouseLeftButtonDown="Privacy_Click"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#337ab7" 
+               TextDecorations="Underline" Text="Помощь и поддержка" Margin="5"
+               Cursor="Hand" MouseLeftButtonDown="Support_Click"/>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,115 @@
+﻿<Page x:Class="Kyrsovai.Registracia"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kyrsovai"
+      mc:Ignorable="d" 
+      Title="Регистрация" Background="#b5f5d6" Height="Auto" MinHeight="700" Width="1180">
+
+    <Page.Resources>
+        <ControlTemplate x:Key="myTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="10">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="LightGreen"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#11f084"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#10b364"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#f5b5d0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Margin="10" Background="White">
+            <Grid>
+                <WrapPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
+                    <Image Source="/logo.png" Height="50" Width="50" Margin="0,0,10,0">
+                        <Image.Clip>
+                            <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                        </Image.Clip>
+                    </Image>
+                    <TextBlock Text="Фриланс-биржа NowWork" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <Button x:Name="Iworker1"  IsEnabled="False" Template="{StaticResource myTemplate}"  Content="Я заказчик" Width="130" Margin="0,0,10,0"/>
+                    <Button x:Name="Ifrilance" Template="{StaticResource myTemplate}" IsEnabled="False" Content="Я фрилансер" Width="130" Margin="0,0,20,0"/>
+                </WrapPanel>
+
+                <WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="GuestText" Text="Гость" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <Button x:Name="EnterButton" Content="Отмена" Template="{StaticResource myTemplate}" Click="OtmenaButton_Click" />
+                </WrapPanel>
+            </Grid>
+        </Border>
+
+        <!-- Форма регистрации -->
+        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Margin="10" Background="White" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto">
+            <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Регистрация" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+                <TextBlock Text="Введите фамилию" FontSize="20"/>
+                <TextBox TextWrapping="Wrap" x:Name="SurnameBox" FontSize="20" Width="300"/>
+                <TextBlock Text="Введите имя" FontSize="20" Margin="0,10,0,0"/>
+                <TextBox TextWrapping="Wrap" x:Name="NameBox" FontSize="20" Width="300"/>
+                <TextBlock Text="Введите email" FontSize="20" Margin="0,10,0,0"/>
+                <TextBox TextWrapping="Wrap" x:Name="EmailBox" FontSize="20" Width="300"/>
+                <TextBlock Text="Введите пароль" FontSize="20" Margin="0,10,0,0"/>
+                <PasswordBox x:Name="PasswordBox" FontSize="20" Width="300"/>
+                <TextBlock Text="Повторите пароль" FontSize="20" Margin="0,10,0,0"/>
+                <PasswordBox x:Name="ConfirmPasswordBox" FontSize="20" Width="300"/>
+                <Button Content="Зарегистрироваться" Template="{StaticResource myTemplate}" Width="200" 
+                        Margin="0,20,0,0" HorizontalAlignment="Center" Click="ButtonRegi_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Подвал -->
+        <Border Grid.Row="2" BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Margin="10" Background="#f8f8f8">
+            <Grid Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center" 
+                           Text="© 2026 Фриланс-биржа. Все права защищены. | Контакты: info@freelance.ru | +7 (999) 123-45-67"/>
+
+                <WrapPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#337ab7" 
+TextDecorations="Underline" Text="Пользовательское соглашение" Margin="5"
+Cursor="Hand" MouseLeftButtonDown="Agreement_Click"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#337ab7" 
+TextDecorations="Underline" Text="Политика конфиденциальности" Margin="5"
+Cursor="Hand" MouseLeftButtonDown="Privacy_Click"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#337ab7" 
+TextDecorations="Underline" Text="Помощь и поддержка" Margin="5"
+Cursor="Hand" MouseLeftButtonDown="Support_Click"/>
+                </WrapPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
