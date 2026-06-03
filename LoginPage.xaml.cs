@@ -29,6 +29,10 @@ namespace Kyrsovai
             {
                 MainPage.CurrentUser = user;
                 MainPage.UserName = "Добро пожаловать, " + user.UserName + "!";
+
+                // СОХРАНЕНИЕ
+                FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.Bids, MainPage.Messages, MainPage.CurrentUser);
+
                 MessageBox.Show("Вход выполнен успешно!");
 
                 var mainWindow = Application.Current.MainWindow as MainWindow;

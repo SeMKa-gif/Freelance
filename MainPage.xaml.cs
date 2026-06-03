@@ -13,6 +13,8 @@ namespace Kyrsovai
         public static List<User> Users { get; set; } = new List<User>();
         public static User CurrentUser { get; set; } = null;
         public static List<Order> Orders { get; set; } = new List<Order>();
+        public static List<Bid> Bids { get; set; } = new List<Bid>();
+        public static List<Message> Messages { get; set; } = new List<Message>();
 
         public MainPage()
         {
@@ -28,6 +30,7 @@ namespace Kyrsovai
             GuestText.Text = UserName;
             UpdateButtonsVisibility();
             UpdateOrdersList();
+            UpdateAuthButtons();
         }
 
         private void LoadDataFromFile()
@@ -47,6 +50,20 @@ namespace Kyrsovai
                     Orders.Clear();
                     foreach (var order in data.Orders)
                         Orders.Add(order);
+                }
+
+                if (data.Bids != null && data.Bids.Count > 0)
+                {
+                    Bids.Clear();
+                    foreach (var bid in data.Bids)
+                        Bids.Add(bid);
+                }
+
+                if (data.Messages != null && data.Messages.Count > 0)
+                {
+                    Messages.Clear();
+                    foreach (var msg in data.Messages)
+                        Messages.Add(msg);
                 }
 
                 if (!string.IsNullOrEmpty(data.CurrentUserEmail))
@@ -237,19 +254,6 @@ namespace Kyrsovai
             });
         }
 
-        public void UpdateButtonsVisibility()
-        {
-            if (CurrentUser != null)
-            {
-                EnterButton.Visibility = Visibility.Collapsed;
-                ExitButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EnterButton.Visibility = Visibility.Visible;
-                ExitButton.Visibility = Visibility.Collapsed;
-            }
-        }
 
         public void UpdateOrdersList()
         {
@@ -268,8 +272,8 @@ namespace Kyrsovai
             CurrentUser = null;
             UserName = "Гость";
             GuestText.Text = UserName;
-            UpdateButtonsVisibility();
-            FileHelper.SaveData(Users, Orders, CurrentUser);
+            UpdateAuthButtons();
+            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.Bids, MainPage.Messages, MainPage.CurrentUser);
         }
 
         private void Iworker1_Click(object sender, RoutedEventArgs e)
@@ -344,6 +348,51 @@ namespace Kyrsovai
             {
                 MessageBox.Show("Файл не найден: " + filePath);
             }
+        }
+
+        private void MyBidsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new MyBidsPage());
+        }
+
+        private void UpdateButtonsVisibility()
+        {
+            if (MainPage.CurrentUser != null)
+            {
+                MyBidsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MyBidsButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        public void UpdateAuthButtons()
+        {
+            if (CurrentUser != null)
+            {
+                EnterButton.Visibility = Visibility.Collapsed;
+                ExitButton.Visibility = Visibility.Visible;
+                MyBidsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                EnterButton.Visibility = Visibility.Visible;
+                ExitButton.Visibility = Visibility.Collapsed;
+                MyBidsButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void OrderBidsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new OrderBidsPage());
+        }
+
+        public void UpdateGuestText()
+        {
+            GuestText.Text = UserName;
         }
     }
 }

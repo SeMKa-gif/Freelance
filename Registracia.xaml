@@ -58,6 +58,8 @@
                     <TextBlock Text="Фриланс-биржа NowWork" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
                     <Button x:Name="Iworker1"  IsEnabled="False" Template="{StaticResource myTemplate}"  Content="Я заказчик" Width="130" Margin="0,0,10,0"/>
                     <Button x:Name="Ifrilance" Template="{StaticResource myTemplate}" IsEnabled="False" Content="Я фрилансер" Width="130" Margin="0,0,20,0"/>
+                    <Button x:Name="MyBidsButton" Content="Мои отклики" Template="{StaticResource myTemplate}" Width="130" Click="MyBidsButton_Click" Visibility="Collapsed"/>
+                    <Button x:Name="OrderBidsButton" Content="Отклики на мои заказы" Template="{StaticResource myTemplate}" Width="180" Click="OrderBidsButton_Click" Visibility="Collapsed"/>
                 </WrapPanel>
 
                 <WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center">

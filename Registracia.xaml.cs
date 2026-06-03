@@ -57,27 +57,6 @@ namespace Kyrsovai
                 return;
             }
 
-            if (surname.Length > 30)
-            {
-                MessageBox.Show("Фамилия не может превышать 30 символов");
-                return;
-            }
-            if (name.Length > 30)
-            {
-                MessageBox.Show("Имя не может превышать 30 символов");
-                return;
-            }
-            if (email.Length > 30)
-            {
-                MessageBox.Show("Email не может превышать 30 символов");
-                return;
-            }
-            if (password.Length > 30)
-            {
-                MessageBox.Show("Пароль не может превышать 30 символов");
-                return;
-            }
-
             var existingUser = MainPage.Users.FirstOrDefault(u => u.Email == email);
             if (existingUser != null)
             {
@@ -97,12 +76,19 @@ namespace Kyrsovai
             MainPage.CurrentUser = newUser;
             MainPage.UserName = "Добро пожаловать, " + name + "!";
 
-            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.CurrentUser);
+            // СОХРАНЕНИЕ
+            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.Bids, MainPage.Messages, MainPage.CurrentUser);
 
             MessageBox.Show("Регистрация успешна!");
 
             var mainWindow = Application.Current.MainWindow as MainWindow;
             mainWindow?.MainFrame.Navigate(new MainPage());
+        }
+
+        private void MyBidsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new MyBidsPage());
         }
 
         private bool IsValidEmail(string email)
@@ -164,6 +150,12 @@ namespace Kyrsovai
             {
                 MessageBox.Show("Файл не найден: " + filePath);
             }
+        }
+
+        private void OrderBidsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new OrderBidsPage());
         }
     }
 }

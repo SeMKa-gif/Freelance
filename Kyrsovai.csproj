@@ -58,7 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bid.cs" />
+    <Compile Include="ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataStorage.cs" />
+    <Compile Include="EditOrderPage.xaml.cs">
+      <DependentUpon>EditOrderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileHelper.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -66,7 +73,14 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Message.cs" />
+    <Compile Include="MyBidsPage.xaml.cs">
+      <DependentUpon>MyBidsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
+    <Compile Include="OrderBidsPage.xaml.cs">
+      <DependentUpon>OrderBidsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetailsPage.xaml.cs">
       <DependentUpon>OrderDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -77,6 +91,14 @@
     <Compile Include="WorkerPage.xaml.cs">
       <DependentUpon>WorkerPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="ChatPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditOrderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +119,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MyBidsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OrderBidsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OrderDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

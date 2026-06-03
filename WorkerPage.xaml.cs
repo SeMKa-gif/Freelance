@@ -35,6 +35,7 @@ namespace Kyrsovai
                 EnterButton.Visibility = Visibility.Collapsed;
                 ExitButton.Visibility = Visibility.Visible;
             }
+            UpdateAuthButtons();
         }
 
         private void Iworker1_Click(object sender, RoutedEventArgs e)
@@ -60,7 +61,7 @@ namespace Kyrsovai
             MainPage.CurrentUser = null;
             MainPage.UserName = "Гость";
 
-            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.CurrentUser);
+            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.Bids, MainPage.Messages, MainPage.CurrentUser);
 
             var mainWindow = Application.Current.MainWindow as MainWindow;
             mainWindow?.MainFrame.Navigate(new MainPage());
@@ -132,13 +133,15 @@ namespace Kyrsovai
 
             Order newOrder = new Order
             {
+                OrderId = MainPage.Orders.Count + 1,
                 OrderTitle = name,
                 Description = opisanie,
                 Deadline = time.Value,
                 Price = price,
                 Rating = 0,
                 ImagePath = selectedImagePath,
-                Author = MainPage.CurrentUser?.UserName ?? "Неизвестен"
+                Author = MainPage.CurrentUser?.UserName ?? "Неизвестен",
+                AuthorEmail = MainPage.CurrentUser?.Email ?? ""
             };
 
             MainPage.Orders.Add(newOrder);
@@ -152,7 +155,10 @@ namespace Kyrsovai
             PreviewImage.Source = null;
             selectedImagePath = "logo.png";
 
-            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.CurrentUser);
+            
+            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.Bids, MainPage.Messages, MainPage.CurrentUser);
+
+            
 
             var mainWindow = Application.Current.MainWindow as MainWindow;
             if (mainWindow?.MainFrame.Content is MainPage mainPage)
@@ -198,6 +204,47 @@ namespace Kyrsovai
             {
                 MessageBox.Show("Файл не найден: " + filePath);
             }
+        }
+
+
+        private void UpdateButtonsVisibility()
+        {
+            if (MainPage.CurrentUser != null)
+            {
+                MyBidsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MyBidsButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void UpdateAuthButtons()
+        {
+            if (MainPage.CurrentUser != null)
+            {
+                EnterButton.Visibility = Visibility.Collapsed;
+                ExitButton.Visibility = Visibility.Visible;
+                MyBidsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                EnterButton.Visibility = Visibility.Visible;
+                ExitButton.Visibility = Visibility.Collapsed;
+                MyBidsButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void MyBidsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new MyBidsPage());
+        }
+
+        private void OrderBidsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new OrderBidsPage());
         }
     }
 }

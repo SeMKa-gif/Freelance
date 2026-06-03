@@ -8,12 +8,14 @@ namespace Kyrsovai
     {
         private static string filePath = "data.json";
 
-        public static void SaveData(List<User> users, List<Order> orders, User currentUser)
+        public static void SaveData(List<User> users, List<Order> orders, List<Bid> bids, List<Message> messages, User currentUser)
         {
             var data = new DataStorage
             {
                 Users = users,
                 Orders = orders,
+                Bids = bids,
+                Messages = messages,
                 CurrentUserEmail = currentUser?.Email
             };
 

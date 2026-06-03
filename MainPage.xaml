@@ -49,26 +49,35 @@
             <!-- Шапка -->
             <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Margin="10" Background="White">
                 <Grid>
-                    <WrapPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
-                        <Image Source="/logo.png" Height="50" Width="50" Margin="0,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <WrapPanel Grid.Row="0" Orientation="Horizontal" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image Source="/logo.png" Height="45" Width="45" Margin="0,0,10,0">
                             <Image.Clip>
-                                <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                                <EllipseGeometry Center="22.5,22.5" RadiusX="22.5" RadiusY="22.5"/>
                             </Image.Clip>
                         </Image>
-                        <TextBlock Text="Фриланс-биржа NowWork" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                        <TextBlock Text="Фриланс-биржа NowWork" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
                         <Button x:Name="Iworker1" Template="{StaticResource myTemplate}" Content="Я заказчик" Width="130" Margin="0,0,10,0" Click="Iworker1_Click"/>
-                        <Button x:Name="Ifrilance" Background="#10b364" Template="{StaticResource myTemplate}" Content="Я фрилансер" Width="130" Margin="0,0,20,0" Click="Ifrilance_Click"/>
+                        <Button x:Name="Ifrilance" Background="#10b364" Template="{StaticResource myTemplate}" Content="Я фрилансер" Width="130" Margin="0,0,10,0" Click="Ifrilance_Click"/>
+                        <Button x:Name="MyBidsButton" Content="Мои отклики" Template="{StaticResource myTemplate}" Width="140" Margin="0,0,10,0" Click="MyBidsButton_Click"/>
+                        <Button x:Name="OrderBidsButton" Content="Отклики на мои заказы" Template="{StaticResource myTemplate}" Width="215" Click="OrderBidsButton_Click"/>
                     </WrapPanel>
 
-                    <WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center">
-                        <TextBlock x:Name="GuestText" Width="250" TextAlignment="Right" TextWrapping="Wrap" Text="Гость" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <Button x:Name="EnterButton" Content="Войти" Template="{StaticResource myTemplate}" Click="ButtonVoiti_Click"/>
-                        <Button x:Name="ExitButton" Background="#f5b5d0" Content="Выйти" Template="{StaticResource myTemplate}" Click="ButtonExit_Click" Visibility="Collapsed"/>
+                    <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,5,10,10" VerticalAlignment="Center">
+                        <TextBlock x:Name="GuestText" Text="Гость" FontSize="14" VerticalAlignment="Center" 
+                       MaxWidth="450" TextTrimming="CharacterEllipsis" ToolTip="{Binding Text, ElementName=GuestText}" Opacity="0.7" Margin="0,0,10,0"/>
+                        <Button x:Name="EnterButton" Content="Войти" Template="{StaticResource myTemplate}" Width="90" Height="35" Click="ButtonVoiti_Click" Margin="0,0,10,0"/>
+                        <Button x:Name="ExitButton" Background="#f5b5d0" Content="Выйти" Template="{StaticResource myTemplate}" Width="90" Height="35" Click="ButtonExit_Click" Visibility="Collapsed"/>
                     </WrapPanel>
                 </Grid>
             </Border>
 
-            <!-- Список заказов (теперь без статических ListBoxItem) -->
+
+            <!-- Список заказов -->
             <ListBox x:Name="OrdersList" Grid.Row="1" Margin="10" Background="Transparent" BorderThickness="0" 
          HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
          ScrollViewer.VerticalScrollBarVisibility="Disabled">

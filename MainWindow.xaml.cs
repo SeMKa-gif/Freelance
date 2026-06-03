@@ -24,6 +24,12 @@ namespace Kyrsovai
         {
             InitializeComponent();
             MainFrame.Navigate(new MainPage());
+            this.Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.Bids, MainPage.Messages, MainPage.CurrentUser);
         }
         private void ButtonVoiti_Click(object sender, RoutedEventArgs e)
         {
@@ -40,10 +46,7 @@ namespace Kyrsovai
             MainFrame.Navigate(new MainPage());
         }
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            FileHelper.SaveData(MainPage.Users, MainPage.Orders, MainPage.CurrentUser);
-        }
+
 
     }
 }
